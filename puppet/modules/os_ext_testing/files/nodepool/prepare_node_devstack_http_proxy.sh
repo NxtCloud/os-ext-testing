@@ -125,5 +125,5 @@ zS1V6L5THDUyrk4oYcBcCuqdO5JZRTH/IHQGuLDWZwEYkHJ9SHBAA0YyM/zMfCIz
 FSRxtSGsdhYeRJi8xNuiDJ8eaBRP3WundLI2kdi0p2sxaJgvOVppR278
 -----END RSA PRIVATE KEY-----" >> passthrough_keys/id_rsa
 
-echo "./passthrough.sh" | ssh -i passthrough_keys/id_rsa.pub stack@10.50.137.2
+#echo "./passthrough.sh" | ssh -i passthrough_keys/id_rsa.pub stack@10.50.137.2
 
