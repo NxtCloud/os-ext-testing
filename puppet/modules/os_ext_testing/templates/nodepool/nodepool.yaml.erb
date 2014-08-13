@@ -40,7 +40,6 @@ providers:
       - name: d-p-c
         base-image: 'Ubuntu 12.04 Server (Precise)'
         min-ram: 8192
-#        setup: prepare_node_devstack.sh
         setup: prepare_node_devstack_http_proxy.sh
         #Set the public key part only of the jenkin's key (no whitespace) to the NODEPOOL_SSH_KEY environment variable in order to
         #inject it into the image's jenkins user .ssh/authorized_keys
@@ -60,9 +59,8 @@ providers:
     keypair: 'jenkins'
     images:
       - name: d-p-c-fc
-        base-image: 'Ubuntu 12.04 Server (Precise)'
+        base-image: 'Ubuntu 12.04 Server Glance Image (Precise)'
         min-ram: 8192
-#        setup: prepare_node_devstack.sh
         setup: prepare_node_devstack_http_proxy.sh
         #Set the public key part only of the jenkin's key (no whitespace) to the NODEPOOL_SSH_KEY environment variable in order to
         #inject it into the image's jenkins user .ssh/authorized_keys
