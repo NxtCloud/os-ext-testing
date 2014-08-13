@@ -91,12 +91,15 @@ sudo mv -f $TEMPFILE ~/.pip/pip.conf
 
 ./restrict_memory.sh
 
-mkdir passthrough_keys
-
+TEMPFILE=`mktemp`
 echo "ssh-rsa
 AAAAB3NzaC1yc2EAAAADAQABAAABAQCsR2h4V0uV2526Mxmdk0Agn10lCpXaMH7iTpksCUzzPQhRtXFfhBPNuWi51HpPouCGIbqUzMdsDvTvXwbig3/GWTThEpDMUv80e1HGYiGNXme3Z1bkIdPNKrARMZ+N6nYzoJKa4v4FMtEnt1u6gNoBcpOxq8GTGtehckL3TbTYWCrnjvutaKg0/ybPaw3xW2c7/4eUyHHKwqyGZtupFPP3dD9MPuWT4DO3M3uC6K6Jq04/DP5xr/CpI2yKBaDIkBDIE7tdZgZXOTm/USqUz+PZxiVMX3KEeQM9uoNFi/sI+7B8pnjyZ2n0zmerYDBW9HfOnL/DXqvhxnB9hsdwiyVh
-stack@rahul-stack2" >> passthrough_keys/id_rsa.pub
+stack@rahul-stack2" >> $TEMPFILE
+chmod 0400 $TEMPFILE
+sudo chown jenkins:jenkins $TEMPFILE
+sudo mv -f $TEMPFILE /home/jenkins/.ssh/passthrough.pub
 
+TEMPFILE=`mktemp`
 echo "-----BEGIN RSA PRIVATE KEY-----
 MIIEpgIBAAKCAQEArEdoeFdLldudujMZnZNAIJ9dJQqV2jB+4k6ZLAlM8z0IUbVx
 X4QTzbloudR6T6LghiG6lMzHbA70718G4oN/xlk04RKQzFL/NHtRxmIhjV5nt2dW
@@ -123,7 +126,9 @@ Ccx1bWf8kZXIPdZ/QsbQOfj1hf3smoeGc/uPro1WKskuP0Hb+PX7ZL1wsnNN2baS
 uSUfMRCTAoGBAKu/q4aWcYoJ2O6yy7eNaAH9Tz6qRGe7PmK9hlumA0ah8/f3huIi
 zS1V6L5THDUyrk4oYcBcCuqdO5JZRTH/IHQGuLDWZwEYkHJ9SHBAA0YyM/zMfCIz
 FSRxtSGsdhYeRJi8xNuiDJ8eaBRP3WundLI2kdi0p2sxaJgvOVppR278
------END RSA PRIVATE KEY-----" >> passthrough_keys/id_rsa
+-----END RSA PRIVATE KEY-----" >> $TEMPFILE
 
-#echo "./passthrough.sh" | ssh -i passthrough_keys/id_rsa.pub stack@10.50.137.2
+chmod 0400 $TEMPFILE
+sudo chown jenkins:jenkins $TEMPFILE
+sudo mv -f $TEMPFILE /home/jenkins/.ssh/passthrough
 
