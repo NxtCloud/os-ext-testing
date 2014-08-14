@@ -24,6 +24,7 @@ labels:
     min-ready: 1
     providers:
       - name: local_01_fc
+      - name: local_02_fc
 
 providers:
   - name: local_01
@@ -49,6 +50,19 @@ providers:
     username: '<%= local_username %>'
     password: '<%= local_password %>'
     auth-url: 'http://<%= local_01_ip %>:5000/v2.0'
+    project-id: 'admin'
+    max-servers: 1
+    keypair: 'jenkins'
+    images:
+      - name: d-p-c-fc
+        base-image: 'Ubuntu 12.04 Server (Precise)'
+        min-ram: 8192
+        setup: prepare_node_devstack_http_proxy.sh
+        private-key: '/home/nodepool/.ssh/id_rsa'
+  - name: local_02_fc
+    username: '<%= local_username %>'
+    password: '<%= local_password %>'
+    auth-url: 'http://<%= local_02_ip %>:5000/v2.0'
     project-id: 'admin'
     max-servers: 1
     keypair: 'jenkins'
