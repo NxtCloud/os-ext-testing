@@ -97,7 +97,8 @@ AAAAB3NzaC1yc2EAAAADAQABAAABAQCsR2h4V0uV2526Mxmdk0Agn10lCpXaMH7iTpksCUzzPQhRtXFf
 stack@rahul-stack2" >> $TEMPFILE
 chmod 0400 $TEMPFILE
 sudo chown jenkins:jenkins $TEMPFILE
-sudo mv -f $TEMPFILE /home/jenkins/.ssh/passthrough.pub
+sudo cp $TEMPFILE /tmp/passthrough.pub
+sudo mv -f $TEMPFILE /home/jenkins/passthrough.pub
 
 TEMPFILE=`mktemp`
 echo "-----BEGIN RSA PRIVATE KEY-----
@@ -130,5 +131,6 @@ FSRxtSGsdhYeRJi8xNuiDJ8eaBRP3WundLI2kdi0p2sxaJgvOVppR278
 
 chmod 0400 $TEMPFILE
 sudo chown jenkins:jenkins $TEMPFILE
-sudo mv -f $TEMPFILE /home/jenkins/.ssh/passthrough
+sudo cp $TEMPFILE /tmp/passthrough
+sudo mv -f $TEMPFILE /home/jenkins/passthrough
 
