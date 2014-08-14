@@ -10,8 +10,6 @@
 # information Virsh needs to attach it.
 
 PROVIDER=stack@10.50.137.2 # Example
-export OS_USERNAME=
-export OS_PASSWORD=
 
 # Finding local IP leads to Nova ID leads to virsh name.
 
@@ -21,7 +19,7 @@ echo "Node IP is $IP"
 ID=$(ssh $PROVIDER 'source devstack/openrc admin admin && nova list' | python process_outputs.py --ip $IP)
 echo "Node ID is $ID"
 
-VIRSH_NAME=$(ssh $PROVIDER 'nova show $ID' | process_outputs.py --virsh_name)
+VIRSH_NAME=$(ssh $PROVIDER 'source devstack/openrc admin admin && nova show $ID' | process_outputs.py --virsh_name)
 echo "Node's virsh name is $VIRSH_NAME"
 
 # Discover PCI card and generate XML and sed snippets to allow attachment.
@@ -35,11 +33,9 @@ CMD="sed -i s,<address domain='0x0000' bus='0x5' slot='0x00' function='0x2'/>,"$
 # Put passthrough script and data onto provider and update data.
 
 ssh $PROVIDER 'mkdir passthrough_temp'
-scp passthrough.sh $PROVIDER:~/passthrough_temp
 scp fcoe.xml $PROVIDER:~/passthrough_temp
 ssh $PROVIDER '$CMD'
 
 # Run passthrough script and clean up.
 
-ssh $PROVIDER "./passthrough_temp/passthrough.sh $VIRSH_NAME $PCI_CARD"
 ssh $PROVIDER "rm -r passthrough_temp"
